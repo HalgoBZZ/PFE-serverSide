@@ -9,7 +9,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 public class ServerSideApplication {
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(ServerSideApplication.class, args);
 	}
+
 }

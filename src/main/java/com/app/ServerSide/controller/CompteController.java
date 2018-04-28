@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.ServerSide.security.domain.Compte;
+import com.app.ServerSide.modal.entities.Compte;
 import com.app.ServerSide.service.ICompteService;
 
 @RestController

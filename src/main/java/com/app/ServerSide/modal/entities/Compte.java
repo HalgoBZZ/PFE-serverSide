@@ -1,40 +1,28 @@
-package com.app.ServerSide.security.domain;
+package com.app.ServerSide.modal.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import com.app.ServerSide.modal.types.Sexe;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="compte")
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 
-public class Compte implements UserDetails, Serializable{
+public class Compte implements Serializable{
 	
 	/**
 	 * 
@@ -64,7 +52,8 @@ public class Compte implements UserDetails, Serializable{
 	@Column(name="CMPT_BIRTH")
 	protected Date CMPT_BIRTH;
 
-	@Column(name="CMPT_PIC")
+
+	@Column(name="CMPT_PIC", length = 1000000)
 	protected String CMPT_PIC;
 
 	@Column(name="CMPT_PHONE")
@@ -85,11 +74,7 @@ public class Compte implements UserDetails, Serializable{
 	
 	@Column(name="CMPT_ENABLE")
 	private boolean CMPt_ENABLE=true;
-	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	@JsonIgnore
-	private List<UserRole> userRoles=new ArrayList<UserRole>();
-	
+
 
 	public Long getCMPT_ID() {
 		return CMPT_ID;
@@ -193,54 +178,6 @@ public class Compte implements UserDetails, Serializable{
 
 	public void setCMPt_ENABLE(boolean cMPt_ENABLE) {
 		CMPt_ENABLE = cMPt_ENABLE;
-	}
-
-	public List<UserRole> getUserRoles() {
-		return userRoles;
-	}
-
-	public void setUserRoles(List<UserRole> userRoles) {
-		this.userRoles = userRoles;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Set<GrantedAuthority> authorities=new HashSet<>();
-		userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getROLE_NAME())));
-		return authorities;	
-	}
-
-	@Override
-	public String getPassword() {
-		return CMPT_PWD;
-	}
-
-	@Override
-	public String getUsername() {
-		return CMPT_LOGIN;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return CMPt_ENABLE;
 	}
 
 	
