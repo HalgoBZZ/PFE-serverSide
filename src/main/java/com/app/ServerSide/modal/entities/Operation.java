@@ -16,11 +16,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Proxy;
+
 import com.app.ServerSide.modal.types.TypeOperation;
 
 
 @Entity
 @Table(name="Operation")
+@Proxy(lazy=false)
 public class Operation implements Serializable{
 	
 	/**

@@ -7,12 +7,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Proxy;
 
 import com.app.ServerSide.modal.types.Day;
 import com.app.ServerSide.modal.types.PlanificationState;
@@ -21,6 +25,7 @@ import com.app.ServerSide.modal.types.PlanificationType;
 
 @Entity
 @Table(name="planification")
+@Proxy(lazy=false)
 public class Planification implements Serializable{
 	
 	/**
@@ -29,6 +34,7 @@ public class Planification implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="PLANIF_ID")
 	private Long PLANIF_ID;
 	
@@ -38,10 +44,6 @@ public class Planification implements Serializable{
 	@Temporal(TemporalType.DATE)
 	@Column(name="PLANIF_DEBDT")
 	private Date PLANIF_DEBDT;
-	
-	@Temporal(TemporalType.TIME)
-	@Column(name="PLANIF_HOUR")
-	private Date PLANIF_HOUR;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name="PLANIF_DAY")
@@ -76,13 +78,12 @@ public class Planification implements Serializable{
 	}
 
 	public Planification(Long pLANIF_ID, String pLANIF_NAME, Date pLANIF_DT, 
-			Date pLANIF_HOUR, Day pLANIF_DAY, PlanificationType pLANIF_TYPE, 
+			Day pLANIF_DAY, PlanificationType pLANIF_TYPE, 
 			PlanificationState pLANIF_STATE, Date pLANIF_CREDT, Date pLANIF_UPDTDT,
 			Date pLANIF_ENDDT) {
 		PLANIF_ID = pLANIF_ID;
 		PLANIF_NAME = pLANIF_NAME;
 		PLANIF_DEBDT = pLANIF_DT;
-		PLANIF_HOUR = pLANIF_HOUR;
 		PLANIF_DAY = pLANIF_DAY;
 		PLANIF_TYPE = pLANIF_TYPE;
 		PLANIF_STATE = pLANIF_STATE;
@@ -113,14 +114,6 @@ public class Planification implements Serializable{
 
 	public void setPLANIF_DEBDT(Date pLANIF_DT) {
 		PLANIF_DEBDT = pLANIF_DT;
-	}
-
-	public Date getPLANIF_HOUR() {
-		return PLANIF_HOUR;
-	}
-
-	public void setPLANIF_HOUR(Date pLANIF_HOUR) {
-		PLANIF_HOUR = pLANIF_HOUR;
 	}
 
 	public Day getPLANIF_DAY() {

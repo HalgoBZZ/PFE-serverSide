@@ -1,6 +1,8 @@
 package com.app.ServerSide.modal.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,14 +14,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Proxy;
+
 import com.app.ServerSide.modal.types.Sexe;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 @Entity
 @Table(name="compte")
+@Proxy(lazy=false)
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 
 public class Compte implements Serializable{
@@ -75,6 +85,9 @@ public class Compte implements Serializable{
 	@Column(name="CMPT_ENABLE")
 	private boolean CMPt_ENABLE=true;
 
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany
+	private Collection<AppRole> roles=new ArrayList<AppRole>();
 
 	public Long getCMPT_ID() {
 		return CMPT_ID;
@@ -148,10 +161,12 @@ public class Compte implements Serializable{
 		CMPT_EMAIL = cMPT_EMAIL;
 	}
 
+	@JsonIgnore
 	public String getCMPT_PWD() {
 		return CMPT_PWD;
 	}
 
+	@JsonSetter
 	public void setCMPT_PWD(String cMPT_PWD) {
 		CMPT_PWD = cMPT_PWD;
 	}
@@ -180,5 +195,14 @@ public class Compte implements Serializable{
 		CMPt_ENABLE = cMPt_ENABLE;
 	}
 
+	public Collection<AppRole> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<AppRole> roles) {
+		this.roles = roles;
+	}
+
+	
 	
 }

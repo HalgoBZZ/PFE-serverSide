@@ -2,7 +2,7 @@ package com.app.ServerSide.modal.types;
 
 public enum PlanificationState {
 	
-	Inactif("Inactif",0),
+	INACTIF("Inactif",0),
 	EN_COURS("En cours",1),
 	ACTIF("Actif",2);
 	

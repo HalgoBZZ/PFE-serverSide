@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.app.ServerSide.modal.entities.Operation;
 import com.app.ServerSide.modal.entities.Tournee;
@@ -11,6 +12,7 @@ import com.app.ServerSide.repository.OperationRepository;
 import com.app.ServerSide.service.IOperationService;
 
 @Service
+@Transactional
 public class OperationService implements IOperationService{
 
 	

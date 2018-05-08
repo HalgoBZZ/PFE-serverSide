@@ -3,7 +3,6 @@ package com.app.ServerSide.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.ServerSide.modal.entities.Compte;
 import com.app.ServerSide.modal.entities.Releveur;
-import com.app.ServerSide.modal.entities.Responsable;
+import com.app.ServerSide.service.ICompteService;
 import com.app.ServerSide.service.IReleveurService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping(value="/releveurs")
 public class ReleveurController {
@@ -24,10 +23,9 @@ public class ReleveurController {
 	@Autowired
 	private IReleveurService releveurService;
 	
-	/*@GetMapping("/getreleveur/{login}/{pwd}")
-	public Releveur authentification(@PathVariable("login")String login, @PathVariable("pwd")String pwd) {
-		return releveurDao.authentification(login, pwd);
-	}*/
+	@Autowired
+	private ICompteService compteService;
+	
 	
 	@GetMapping("/get/{id}")
 	public Releveur findById(Long id) {
@@ -41,7 +39,10 @@ public class ReleveurController {
 	
 	@PostMapping("/save")
 	public void save(@RequestBody Releveur releveur) {
+		Compte cmpt=compteService.findUserByLogin(releveur.getCMPT_LOGIN());
+		if(cmpt!=null)throw new RuntimeException("Cet utilisateur existe déja!!");
 		releveurService.save(releveur);
+		compteService.addRoleToUser(releveur.getCMPT_LOGIN(), "RELEVEUR");
 	}
 	
 	@DeleteMapping("/delete/{releveur}")
@@ -51,17 +52,18 @@ public class ReleveurController {
 	
 	@PostMapping("/update")
 	public void update(@RequestBody Releveur releveur) {
+		
 		releveurService.update(releveur);
 	}
 	
-	@GetMapping("/byresponsable")
-	public List<Releveur> findByResponsable(Responsable responsable){
-		return releveurService.findByResponsable(responsable);
+	@GetMapping("/byresponsable/{login}")
+	public List<Releveur> findByResponsable(@PathVariable("login")String login){
+		return releveurService.findByResponsable(login);
 	}
 	
-	/*@PostMapping("/logout")
-	public void deconnexion() {
-		releveurDao.deconnexion();
-	}*/
-
+	@GetMapping("/getbylogin/{login}")
+	public Releveur findByLogin(@PathVariable("login") String login) {
+		return releveurService.findByLogin(login);
+	}
+	
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.ServerSide.modal.entities.Planification;
+import com.app.ServerSide.modal.types.PlanificationState;
 import com.app.ServerSide.service.IPlanificationService;
 
-@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/planifications")
 public class PlanificationController{
@@ -38,6 +37,7 @@ public class PlanificationController{
 	
 	@PostMapping("/save")
 	public void save(@Valid @RequestBody Planification planification) {
+		planification.setPLANIF_STATE(PlanificationState.ACTIF);
 		planificationService.save(planification);
 	}
 	

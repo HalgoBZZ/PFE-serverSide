@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.app.ServerSide.modal.entities.Pdl;
 import com.app.ServerSide.repository.PdlRepository;
 import com.app.ServerSide.service.IPdlService;
 
 @Service
+@Transactional
 public class PdlService  implements IPdlService{
 	
 	@Autowired
