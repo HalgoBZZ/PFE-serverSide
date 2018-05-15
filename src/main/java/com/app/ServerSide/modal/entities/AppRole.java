@@ -28,6 +28,9 @@ public class AppRole implements Serializable{
 	
 	@Column(name="NAME_ROLE")
 	private String NAME_ROLE;
+	
+	/*@ManyToMany
+	private Collection<Compte>=new ArrayList<>();*/
 
 	public AppRole() {
 		super();

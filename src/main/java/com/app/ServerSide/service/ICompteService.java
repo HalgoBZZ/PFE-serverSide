@@ -10,4 +10,6 @@ public interface ICompteService extends IService<Compte, Long> {
 	public void addRoleToUser(String username, String roleName);
 	
 	public Compte findUserByLogin(String login);
+
+	public boolean isResponsable(String login);
 }

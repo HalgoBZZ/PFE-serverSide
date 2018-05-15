@@ -44,6 +44,11 @@ public class TourneeService implements ITourneeService{
 		return tourneeRepository.getOne(id);
 	}
 
+	@Override
+	public List<Tournee> getNonAffecter() {
+		return tourneeRepository.getNonAffecter();
+	}
+
 	
 	
 

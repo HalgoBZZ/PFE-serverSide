@@ -45,5 +45,9 @@ public class CompteController{
 	public void delete(@PathVariable Long id) {
 		compteService.delete(id);
 	}
+	@GetMapping("/isresponsable/{login}")
+	public boolean isResponsable(@PathVariable String login) {
+		return compteService.isResponsable(login);
+	}
 
 }

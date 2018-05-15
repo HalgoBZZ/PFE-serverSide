@@ -43,6 +43,12 @@ public class MesureCadranService implements IMesureCadranService{
 		return mesureRepository.getOne(id);
 	}
 
+	@Override
+	public List<MesureCadran> getByReleve(Long id) {
+		return mesureRepository.findByReleve(id);
+		
+	}
+
 
 
 }

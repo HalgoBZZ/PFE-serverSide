@@ -43,6 +43,11 @@ public class ReleveService implements IReleveService{
 		return releveRepository.getOne(id);
 	}
 
+	@Override
+	public List<Releve> getByPdl(Long id) {
+		return releveRepository.getByPdl(id);
+	}
+
 	
 	
 

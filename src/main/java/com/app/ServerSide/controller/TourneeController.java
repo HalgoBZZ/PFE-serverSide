@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,34 +22,21 @@ public class TourneeController{
 	@Autowired
 	private ITourneeService tourneeService;
 	
-	/*public List<Tournee>findNonAffectee(){
-		return tourneeDao.findNonAffectee();
+	
+	@GetMapping("/nonaffecter")
+	public List<Tournee> getNonAffecter(){
+		return tourneeService.getNonAffecter();
 	}
 	
-	public List<Tournee>findAvalider(){
-		return tourneeDao.findAvalider();
+	@PostMapping("/update")
+	public void update(@RequestBody Tournee tournee) {
+		tourneeService.save(tournee);
 	}
 	
-	public void affecter(Tournee tournee, Releveur releveur) {
-		tourneeDao.affecter(tournee, releveur);
+	@GetMapping("/get/{id}")
+	public Tournee getByID(@PathVariable("id")Long id) {
+		return tourneeService.findById(id);
 	}
-	
-	public void charger() {
-		tourneeDao.charger();
-	}
-	
-	public void decharger(List<Tournee> tournees) {
-		tourneeDao.decharger(tournees);
-	}
-	
-	public void valider(List<Tournee>tournees) {
-		tourneeDao.valider(tournees);
-	}
-	
-	public void decomposer(Tournee tournee) {
-		tourneeDao.decomposer(tournee);
-	}*/
-	
 	/*************************************planning*************************************/
 	@GetMapping("/all")
 	public List<Tournee>findAll(){

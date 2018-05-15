@@ -1,5 +1,6 @@
 package com.app.ServerSide.service.impl;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,17 @@ public class CompteService  implements ICompteService {
 	@Override
 	public Compte findUserByLogin(String login) {
 		return compteRepository.findByLogin(login);
+	}
+
+	@Override
+	public boolean isResponsable(String login) {
+		Compte cmpt=findUserByLogin(login);
+		Collection<AppRole> roles=cmpt.getRoles();
+		for (AppRole role : roles) {
+			if (role.getNAME_ROLE().equals("RESPONSABLE"))
+			return true;
+		}
+		return false;
 	}
 
 	

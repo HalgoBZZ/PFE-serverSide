@@ -49,5 +49,10 @@ public class MesureCadranController{
 	public void delete(@PathVariable("id") Long id) {
 		mesureCadranService.delete(id);
 	}
+	
+	@GetMapping("/byreleve/{id}")
+	public List<MesureCadran> getByReleve(@PathVariable("id")Long id){
+		return mesureCadranService.getByReleve(id);
+	}
 
 }

@@ -19,7 +19,10 @@ public class ServerSideApplication implements CommandLineRunner{
 	private RoleRepository roleRepository;
 	
 	@Autowired
-	private IResponsableService responsableService;*/
+	private IResponsableService responsableService;
+	
+	@Autowired
+	private IReleveurService releveurService;*/
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ServerSideApplication.class, args);
@@ -37,8 +40,15 @@ public class ServerSideApplication implements CommandLineRunner{
 		Responsable resp=new Responsable();
 		resp.setCMPT_LOGIN("admin");
 		resp.setCMPT_PWD("admin");
-		responsableService.save(resp);*/
-	}
+		responsableService.save(resp);
+		Releveur rel= new Releveur();
+		rel.setCMPT_LOGIN("hello");
+		rel.setCMPT_PWD("hello");
+		rel.setResponsable(resp);
+		releveurService.save(rel);
+		compteService.addRoleToUser(resp.getCMPT_LOGIN(), "RESPONSABLE");
+		compteService.addRoleToUser(rel.getCMPT_LOGIN(), "RELEVEUR");*/
+		}
 	
 	@Bean //will be executed when the application is running
 	public BCryptPasswordEncoder getBCPE() {

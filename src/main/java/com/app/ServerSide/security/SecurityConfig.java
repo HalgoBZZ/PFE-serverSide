@@ -30,9 +30,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http)throws Exception{
-		http.csrf().disable();
+		http.cors().and().csrf().disable().authorizeRequests();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.authorizeRequests().antMatchers("/login/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE,"/planifications/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.POST,"/comptes/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.GET,"/comptes/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.POST,"/responsables/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.GET,"/responsables/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.DELETE,"/responsables/**").permitAll();
@@ -53,12 +56,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests().antMatchers(HttpMethod.DELETE,"/operations/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.GET,"/pdls/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.POST,"/pdls/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE,"/pdls/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.GET,"/vocabulaires/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.POST,"/vocabulaires/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.GET,"/words/**").permitAll();
 		http.authorizeRequests().antMatchers(HttpMethod.POST,"/words/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.POST,"/mesurecadrans/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.GET,"/mesurecadrans/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE,"/mesurecadrans/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.POST,"/releves/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.GET,"/releves/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE,"/releves/**").permitAll();
 		http.authorizeRequests().anyRequest().authenticated();
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager()));
 		http.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
+	/* @Bean
+	  CorsConfigurationSource corsConfigurationSource() {
+	    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/*", new CorsConfiguration().applyPermitDefaultValues());
+	    return source;
+	  }*/
+	 
+	/* @Bean
+	    CorsConfigurationSource corsConfigurationSource()
+	    {
+	        CorsConfiguration configuration = new CorsConfiguration();
+	        configuration.setAllowedOrigins(Arrays.asList("https://localhost:8080"));
+	        configuration.setAllowedMethods(Arrays.asList("GET","POST","DELETE","OPTIONS"));
+	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	        source.registerCorsConfiguration("/**", configuration);
+	        return source;
+	    }*/
 }

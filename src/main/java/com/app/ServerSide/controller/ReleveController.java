@@ -52,5 +52,10 @@ public class ReleveController{
 		releveService.delete(id);
 	}
 	
+	@GetMapping("/bypdl/{id}")
+	public List<Releve>getByPdl(@PathVariable("id") Long id){
+		return releveService.getByPdl(id);
+	}
+	
 	
 }

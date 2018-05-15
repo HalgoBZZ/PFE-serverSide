@@ -10,7 +10,6 @@ import com.app.ServerSide.modal.entities.Compte;
 @Repository
 public interface CompteRepository extends JpaRepository<Compte,Long>{
 	
-	 @Query("select c from Compte c where c.CMPT_LOGIN = :login")
+	@Query("select c from Compte c where c.CMPT_LOGIN = :login")
 	public Compte findByLogin(@Param("login")String login);
-
 }

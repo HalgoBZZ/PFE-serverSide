@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.app.ServerSide.modal.entities.Pdl;
 import com.app.ServerSide.repository.PdlRepository;
+import com.app.ServerSide.repository.TourneeRepository;
 import com.app.ServerSide.service.IPdlService;
 
 @Service
@@ -16,6 +17,9 @@ public class PdlService  implements IPdlService{
 	
 	@Autowired
 	private PdlRepository pdlRepository;
+	
+	@Autowired
+	private TourneeRepository tourneeRepository;
 
 	@Override
 	public void save(Pdl t) {
@@ -40,6 +44,16 @@ public class PdlService  implements IPdlService{
 	@Override
 	public Pdl findById(Long id) {
 		return pdlRepository.getOne(id);
+	}
+
+	@Override
+	public List<Pdl> getNonAffecter() {
+		return pdlRepository.getNonAffecter();
+	}
+
+	@Override
+	public List<Pdl> ByTournee(Long id) {
+		return pdlRepository.ByTournee(tourneeRepository.getTournee(id));
 	}
 
 	

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.ServerSide.service.IPdlService;
 import com.app.ServerSide.modal.entities.Pdl;
+import com.app.ServerSide.service.IPdlService;
 
 @RestController
 @RequestMapping("/pdls")
@@ -48,5 +48,15 @@ public class PdlController{
 	@GetMapping("/get/{id}")
 	public Pdl findById(@PathVariable("id") Long id) {
 		return pdlService.findById(id);
+	}
+	
+	@GetMapping("/nonaffecter")
+	public List<Pdl>getNonAffecter(){
+		return pdlService.getNonAffecter();
+	}
+	
+	@GetMapping("/bytournee/{id}")
+	public List<Pdl>getByTournee(@PathVariable("id")Long id){
+		return pdlService.ByTournee(id);
 	}
 }
